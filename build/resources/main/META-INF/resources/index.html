@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .movie {
+            border: 1px solid #333;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        .movie-title {
+            font-size: 20px;
+            color: #007BFF;
+        }
+        .movie-genres, .movie-cast {
+            font-size: 16px;
+            color: #6c757d;
+        }
+        .movie-year {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+<form id="movieForm">
+    <label for="question">Question:</label><br>
+    <input type="text" id="question" name="question"><br>
+    <label for="limit">Limit:</label><br>
+    <input type="number" id="limit" name="limit"><br>
+    <input type="button" value="Submit" onclick="submitForm()">
+</form>
+
+<!-- Results DIV -->
+<div id="results"></div>
+
+<!-- Include this JavaScript block for AJAX request -->
+<script>
+    function submitForm() {
+        var question = document.getElementById('question').value;
+        var limit = document.getElementById('limit').value;
+
+        var data = { question: question, limit: limit };
+
+        fetch('http://localhost:8080/movies/findSimilar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                var resultsDiv = document.getElementById('results');
+
+                // Clear out previous results
+                resultsDiv.innerHTML = '';
+
+                // Check if any movies returned
+                if (data.length > 0) {
+                    for (var i=0; i < data.length; i++) {
+                        var movie = data[i];
+                        var movieDiv = `
+                      <div class="movie">
+                          <div class="movie-title"><b>Title:</b> ${movie.title}</div>
+                          <div class="movie-year"><b>Year:</b> ${movie.year}</div>
+
+                          <div class="movie-genres"><b>Genres:</b> ${movie.genres.join(', ')}</div>
+                          <div class="movie-cast"><b>Cast:</b> ${movie.cast.join(', ')}</div>
+                           <div><b>Plot:</b> ${movie.plot}</div>
+                           <div><b>Full Plot:</b> ${movie.fullPlot}</div>
+                      </div>`;
+                        resultsDiv.innerHTML += movieDiv;
+                    }
+                } else {
+                    resultsDiv.innerHTML = '<p>No movies found.</p>';
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+</body>
+</html>
