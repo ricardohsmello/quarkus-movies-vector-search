@@ -32,6 +32,7 @@ public class MoviesResource {
         return Collections.singletonList(service.findByTitle(title));
     }
 
+    @Path("/findSimilar")
     @POST
     public List<MovieResponse> process(MovieRequest request) {
         var embedding = openAIService.getEmbedding(request);

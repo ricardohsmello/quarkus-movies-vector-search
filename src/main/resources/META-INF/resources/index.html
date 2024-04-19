@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question Manager</title>
+</head>
+<body>
+<form id="movieForm">
+    <label for="question">Question:</label><br>
+    <input type="text" id="question" name="question"><br>
+    <label for="limit">Limit:</label><br>
+    <input type="number" id="limit" name="limit"><br>
+    <input type="button" value="Submit" onclick="submitForm()">
+</form>
+
+<!-- Include this JavaScript block for AJAX request -->
+<script>
+    function submitForm() {
+        console.log('testeeeee');
+        var question = document.getElementById('question').value;
+        var limit = document.getElementById('limit').value;
+
+        var data = { question: question, limit: limit };
+
+        fetch('http://localhost:8080/movies/findSimilar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+</body>
+</html>
