@@ -34,7 +34,7 @@ public class MoviesResource {
     @POST
     public List<Movie> process(MovieRequest request) {
         var embedding = openAIService.getEmbedding(request);
-        return service.findSimilar(embedding, request.getLimit());
+        return service.findSimilar(embedding, request.limit());
     }
 }
 

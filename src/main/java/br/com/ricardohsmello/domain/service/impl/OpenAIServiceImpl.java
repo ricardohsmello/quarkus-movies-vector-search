@@ -30,10 +30,10 @@ public class OpenAIServiceImpl implements OpenAIService {
                 .baseUri(URI.create(openaiUrl))
                 .build(OpenAIGateway.class);
 
-        OpenAIRequest openAIRequest = new OpenAIRequest(request.getQuestion(), model);
+        OpenAIRequest openAIRequest = new OpenAIRequest(request.question(), model);
 
         var embedding = openAiGateway.embedding(openAIRequest, token);
 
-        return embedding.getData().getFirst().getEmbedding();
+        return embedding.data().getFirst().embedding();
     }
 }
