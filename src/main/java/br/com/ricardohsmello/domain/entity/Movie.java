@@ -1,5 +1,6 @@
 package br.com.ricardohsmello.domain.entity;
 
+import br.com.ricardohsmello.application.response.MovieResponse;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -20,8 +21,10 @@ public class Movie extends PanacheMongoEntity {
     public Date released;
     public List<String> directors;
     public int year;
-//    @BsonProperty("plot_embedding")
-//    public List<Double> plotEmbedding;
 
-
+    public MovieResponse toResponse() {
+        return new MovieResponse(
+                title, plot, fullPlot, year, genres, cast
+        );
+    }
 }

@@ -1,6 +1,7 @@
 package br.com.ricardohsmello.application;
 
 import br.com.ricardohsmello.application.request.MovieRequest;
+import br.com.ricardohsmello.application.response.MovieResponse;
 import br.com.ricardohsmello.domain.entity.Movie;
 import br.com.ricardohsmello.domain.service.MovieService;
 import br.com.ricardohsmello.domain.service.OpenAIService;
@@ -32,9 +33,9 @@ public class MoviesResource {
     }
 
     @POST
-    public List<Movie> process(MovieRequest request) {
+    public List<MovieResponse> process(MovieRequest request) {
         var embedding = openAIService.getEmbedding(request);
-        return service.findSimilar(embedding, request.limit());
+        return service.findSimilar(embedding, request.limit()).stream().map(Movie::toResponse).toList();
     }
 }
 

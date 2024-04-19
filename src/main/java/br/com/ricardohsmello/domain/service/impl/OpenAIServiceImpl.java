@@ -1,7 +1,6 @@
 package br.com.ricardohsmello.domain.service.impl;
 
 import br.com.ricardohsmello.application.request.MovieRequest;
-import br.com.ricardohsmello.application.response.EmbeddingResponse;
 import br.com.ricardohsmello.domain.service.OpenAIService;
 import br.com.ricardohsmello.infrastructure.gateway.OpenAIGateway;
 import br.com.ricardohsmello.infrastructure.request.OpenAIRequest;
