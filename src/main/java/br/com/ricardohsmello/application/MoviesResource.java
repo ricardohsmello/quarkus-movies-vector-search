@@ -38,6 +38,12 @@ public class MoviesResource {
         var embedding = openAIService.getEmbedding(request);
         return movieService.findSimilar(embedding, request.limit()).stream().map(Movie::toResponse).toList();
     }
+
+    @Path("/total")
+    @GET
+    public int totalMovies() {
+        return movieService.getAll().size();
+    }
 }
 
 
