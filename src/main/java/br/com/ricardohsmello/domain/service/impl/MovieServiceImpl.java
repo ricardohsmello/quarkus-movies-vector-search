@@ -1,8 +1,8 @@
 package br.com.ricardohsmello.domain.service.impl;
 
 import br.com.ricardohsmello.domain.entity.Movie;
+import br.com.ricardohsmello.domain.repository.MovieRepository;
 import br.com.ricardohsmello.domain.service.MovieService;
-import br.com.ricardohsmello.infrastructure.db.MovieRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -15,8 +15,8 @@ public class MovieServiceImpl implements MovieService {
     MovieRepository movieRepository;
 
     @Override
-    public List<Movie> listAll() {
-        return movieRepository.listAll();
+    public List<Movie> getAll() {
+        return movieRepository.getAll();
     }
 
     @Override

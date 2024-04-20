@@ -5,5 +5,5 @@ import br.com.ricardohsmello.application.request.MovieRequest;
 import java.util.List;
 
 public interface OpenAIService {
-   List<Double> getEmbedding(MovieRequest request);
+  List<Double> getEmbedding(MovieRequest request);
 }

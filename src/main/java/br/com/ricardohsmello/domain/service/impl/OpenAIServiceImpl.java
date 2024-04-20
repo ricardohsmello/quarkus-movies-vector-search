@@ -1,12 +1,13 @@
 package br.com.ricardohsmello.domain.service.impl;
 
+import br.com.ricardohsmello.application.config.OpenAIConfig;
 import br.com.ricardohsmello.application.request.MovieRequest;
 import br.com.ricardohsmello.domain.service.OpenAIService;
 import br.com.ricardohsmello.infrastructure.gateway.OpenAIGateway;
 import br.com.ricardohsmello.infrastructure.request.OpenAIRequest;
 import io.quarkus.rest.client.reactive.QuarkusRestClientBuilder;
 import jakarta.enterprise.context.ApplicationScoped;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import jakarta.inject.Inject;
 
 import java.net.URI;
 import java.util.List;
@@ -14,24 +15,19 @@ import java.util.List;
 @ApplicationScoped
 public class OpenAIServiceImpl implements OpenAIService {
 
-    @ConfigProperty(name = "openai.base.url")
-    String openaiUrl;
-
-    @ConfigProperty(name = "openai.bearer.token")
-    String token;
-
-    @ConfigProperty(name = "openai.bearer.model")
-    String model;
+    @Inject
+    OpenAIConfig openAiConfig;
 
     @Override
     public List<Double> getEmbedding(MovieRequest request) {
         var openAiGateway = QuarkusRestClientBuilder.newBuilder()
-                .baseUri(URI.create(openaiUrl))
+                .baseUri(URI.create(openAiConfig.getOpenaiUrl()))
                 .build(OpenAIGateway.class);
 
-        OpenAIRequest openAIRequest = new OpenAIRequest(request.question(), model);
-
-        var embedding = openAiGateway.embedding(openAIRequest, token);
+        var embedding = openAiGateway.embedding(
+                new OpenAIRequest(request.question(), openAiConfig.getModel()),
+                openAiConfig.getToken()
+        );
 
         return embedding.data().getFirst().embedding();
     }

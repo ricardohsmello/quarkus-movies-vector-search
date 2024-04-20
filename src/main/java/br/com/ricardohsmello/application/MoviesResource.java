@@ -18,25 +18,25 @@ import java.util.List;
 public class MoviesResource {
 
     @Inject
-    MovieService service;
+    MovieService movieService;
 
     @Inject
     OpenAIService openAIService;
 
     @GET
-    public List<Movie> listAll(@QueryParam("title") String title) {
+    public List<Movie> get(@QueryParam("title") String title) {
         if (title == null) {
-            return service.listAll();
+            return movieService.getAll();
         }
 
-        return Collections.singletonList(service.findByTitle(title));
+        return Collections.singletonList(movieService.findByTitle(title));
     }
 
     @Path("/findSimilar")
     @POST
     public List<MovieResponse> process(MovieRequest request) {
         var embedding = openAIService.getEmbedding(request);
-        return service.findSimilar(embedding, request.limit()).stream().map(Movie::toResponse).toList();
+        return movieService.findSimilar(embedding, request.limit()).stream().map(Movie::toResponse).toList();
     }
 }
 
