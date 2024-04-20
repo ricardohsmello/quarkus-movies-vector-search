@@ -4,5 +4,5 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
 public record MovieRequest(
-    String question,
+    String search,
     Long limit){}

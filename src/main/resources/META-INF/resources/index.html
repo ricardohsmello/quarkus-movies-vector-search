@@ -36,11 +36,11 @@
     <h1 class="mt-5">Movie Finder</h1>
     <form id="movieForm" class="mt-3">
         <div class="form-group">
-            <label for="question">Question:</label>
-            <input type="text" class="form-control" id="question" name="question">
+            <label for="search">Search:</label>
+            <input type="text" class="form-control" id="search" name="search">
         </div>
         <div class="form-group">
-            <label for="limit">Limit:</label>
+            <label for="limit">Number of movies:</label>
             <input type="number" class="form-control" id="limit" name="limit">
         </div>
         <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
@@ -53,23 +53,23 @@
 <!-- Include this JavaScript block for AJAX request -->
 <script>
     function submitForm() {
-        var question = document.getElementById('question').value;
+        var search = document.getElementById('search').value;
         var limit = document.getElementById('limit').value;
 
-        if (!question.trim()) {
-            alert('Question must not be empty');
+        if (!search.trim()) {
+            alert('Search must not be empty');
             return;
         }
 
         if (limit <= 0 || isNaN(limit)) {
-            alert('Limit must be a number greater than 0');
+            alert('Number of movies must be a number greater than 0');
             return;
         }
 
-        var data = { question: question, limit: limit };
+        var data = { search: search, limit: limit };
 
         var resultsDiv = document.getElementById('results');
-        resultsDiv.innerHTML = '<div class="loading">Loading...</div>';
+        resultsDiv.innerHTML = '<div class="loading">Searching for movies...</div>';
 
         fetch('http://localhost:8080/movies/findSimilar', {
             method: 'POST',

@@ -25,7 +25,7 @@ public class OpenAIServiceImpl implements OpenAIService {
                 .build(OpenAIGateway.class);
 
         var embedding = openAiGateway.embedding(
-                new OpenAIRequest(request.question(), openAiConfig.getModel()),
+                new OpenAIRequest(request.search(), openAiConfig.getModel()),
                 openAiConfig.getToken()
         );
 
