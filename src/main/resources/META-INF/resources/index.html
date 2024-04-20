@@ -2,41 +2,53 @@
 <html>
 <head>
     <title>Movie Finder</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
+            padding: 20px;
         }
         .movie {
-            border: 1px solid #333;
-            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             padding: 10px;
+            margin-bottom: 15px;
         }
         .movie-title {
             font-size: 20px;
             color: #007BFF;
         }
+        .movie-year {
+            font-weight: bold;
+        }
         .movie-genres, .movie-cast {
-            font-size: 16px;
             color: #6c757d;
         }
-        .movie-year {
-            font-size: 16px;
-            font-weight: bold;
+        .loading {
+            text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 
 <body>
-<form id="movieForm">
-    <label for="question">Question:</label><br>
-    <input type="text" id="question" name="question"><br>
-    <label for="limit">Limit:</label><br>
-    <input type="number" id="limit" name="limit"><br>
-    <input type="button" value="Submit" onclick="submitForm()">
-</form>
+<div class="container">
+    <h1 class="mt-5">Movie Finder</h1>
+    <form id="movieForm" class="mt-3">
+        <div class="form-group">
+            <label for="question">Question:</label>
+            <input type="text" class="form-control" id="question" name="question">
+        </div>
+        <div class="form-group">
+            <label for="limit">Limit:</label>
+            <input type="number" class="form-control" id="limit" name="limit">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+    </form>
 
-<!-- Results DIV -->
-<div id="results"></div>
+    <!-- Results DIV -->
+    <div id="results" class="mt-5"></div>
+</div>
 
 <!-- Include this JavaScript block for AJAX request -->
 <script>
@@ -44,7 +56,20 @@
         var question = document.getElementById('question').value;
         var limit = document.getElementById('limit').value;
 
+        if (!question.trim()) {
+            alert('Question must not be empty');
+            return;
+        }
+
+        if (limit <= 0 || isNaN(limit)) {
+            alert('Limit must be a number greater than 0');
+            return;
+        }
+
         var data = { question: question, limit: limit };
+
+        var resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '<div class="loading">Loading...</div>';
 
         fetch('http://localhost:8080/movies/findSimilar', {
             method: 'POST',
@@ -55,25 +80,20 @@
         })
             .then(response => response.json())
             .then(data => {
-                var resultsDiv = document.getElementById('results');
-
-                // Clear out previous results
                 resultsDiv.innerHTML = '';
 
-                // Check if any movies returned
                 if (data.length > 0) {
                     for (var i=0; i < data.length; i++) {
                         var movie = data[i];
                         var movieDiv = `
-                      <div class="movie">
-                          <div class="movie-title"><b>Title:</b> ${movie.title}</div>
-                          <div class="movie-year"><b>Year:</b> ${movie.year}</div>
-
-                          <div class="movie-genres"><b>Genres:</b> ${movie.genres.join(', ')}</div>
-                          <div class="movie-cast"><b>Cast:</b> ${movie.cast.join(', ')}</div>
-                           <div><b>Plot:</b> ${movie.plot}</div>
-                           <div><b>Full Plot:</b> ${movie.fullPlot}</div>
-                      </div>`;
+                          <div class="movie">
+                              <div class="movie-title"><b>Title:</b> ${movie.title}</div>
+                              <div class="movie-year"><b>Year:</b> ${movie.year}</div>
+                              <div class="movie-genres"><b>Genres:</b> ${movie.genres.join(', ')}</div>
+                              <div class="movie-cast"><b>Cast:</b> ${movie.cast.join(', ')}</div>
+                              <div><b>Plot:</b> ${movie.plot}</div>
+                              <div><b>Full Plot:</b> ${movie.fullPlot}</div>
+                          </div>`;
                         resultsDiv.innerHTML += movieDiv;
                     }
                 } else {
@@ -82,6 +102,7 @@
             })
             .catch((error) => {
                 console.error('Error:', error);
+                resultsDiv.innerHTML = '<p>An error occurred. Please try again.</p>';
             });
     }
 </script>
