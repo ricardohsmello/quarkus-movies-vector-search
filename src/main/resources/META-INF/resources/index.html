@@ -194,20 +194,23 @@
                 if (data.length > 0) {
                     for (var i = 0; i < data.length; i++) {
                         var movie = data[i];
+
+                        var castHtml = movie.cast ? movie.cast.map(castMember => `<a href="https://www.google.com/search?q=${encodeURIComponent(castMember)}" target="_blank">${castMember}</a>`).join(', ') : 'N/A';
+
                         var movieDiv = `
                             <div class="movie">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
-                                        <div class="movie-title"><b>Title:</b> ${movie.title}</div>
-                                        <div class="movie-year"><b>Year:</b> ${movie.year}</div>
+                <div class="movie-title"><b>Title:</b> <a href="https://www.google.com/search?q=${encodeURIComponent(movie.title)}" target="_blank">${movie.title ? movie.title : 'N/A'}</a></div>
+                                        <div class="movie-year"><b>Year:</b> ${movie.year ? movie.year : 'N/A'}</div>
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="movie-genres"><b>Genres:</b> ${movie.genres.join(', ')}</div>
-                                <div class="movie-cast"><b>Cast:</b> ${movie.cast ? movie.cast.join(', ') : 'N/A'}</div>
+                                <div class="movie-genres"><b>Genres:</b> ${movie.genres ? movie.genres.join(', ') : 'N/A'}</div>
+        <div class="movie-cast"><b>Cast:</b> ${castHtml}</div>
 
                                 <hr>
-                                <div><b>Full Plot:</b> ${movie.fullPlot}</div>
+                                <div><b>Full Plot:</b> ${movie.fullPlot ? movie.fullPlot : 'N/A'}</div>
                             </div>`;
                         resultsDiv.innerHTML += movieDiv;
                     }
