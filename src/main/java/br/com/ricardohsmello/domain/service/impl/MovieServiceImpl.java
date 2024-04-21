@@ -28,4 +28,9 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> findSimilar(List<Double> embedding, Long limit) {
         return movieRepository.findSimilar(embedding, limit);
     }
+
+    @Override
+    public Long getTotalNumberOfMovies() {
+        return movieRepository.getTotalNumberOfMovies();
+    }
 }

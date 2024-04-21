@@ -51,6 +51,11 @@ public class MovieRepositoryImpl implements PanacheMongoRepository<MovieEntity>,
         return movieList;
     }
 
+    @Override
+    public Long getTotalNumberOfMovies() {
+        return mongoCollection().countDocuments();
+    }
+
 
 }
 

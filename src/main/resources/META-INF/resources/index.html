@@ -6,62 +6,147 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 20px;
-            position: relative; /* Set the body position to relative */
+            background-color: #f8f9fa;
+            position: relative;
+            margin: 0;
         }
+
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
         .movie {
+            position: relative;
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 10px;
             margin-bottom: 15px;
         }
+
         .movie-title {
             font-size: 20px;
-            color: #007BFF;
+            color: #228B22;
+            /* 007BFF*/
         }
+
         .movie-year {
-            font-weight: bold;
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-style: italic;
+            color: #228B22;
+            padding: 15px 5px;
+            border-radius: 5px 0 0 0;
         }
+
+
         .movie-genres, .movie-cast {
             color: #6c757d;
         }
+
         .loading {
             text-align: center;
             margin-top: 20px;
         }
+
         #totalMovies {
-            position: absolute; /* Set the position to absolute */
-            top: 20px; /* Position from the top */
-            right: 20px; /* Position from the right */
-            background-color: #f8f9fa;
-            padding: 5px 10px;
-            border: 1px solid #ccc;
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        #logo {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .jumbotron {
+            padding: 0;
+            margin-bottom: 0;
+
+        }
+
+        .jumbotron .logo {
+            background-image: url("wall.jpg");
+            padding: 20px;
             border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .movieResults {
+            max-width: 800px;
+            margin: 0 auto;
         }
     </style>
 </head>
-
 <body>
-<div class="container">
-    <h1 class="mt-5">Movie Finder</h1>
-    <form id="movieForm" class="mt-3">
-        <div class="form-group">
-            <label for="searchQuery">Give a hint about the kind of movie you're looking for: (e.g. Time-Travel, Super-Hero, War..)</label>
-            <input type="text" class="form-control" id="searchQuery" name="searchQuery">
+<div class="jumbotron">
+    <div class="logo">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="logo.png" alt="" width="100" height="200">
+            <h1>Movie Finder</h1>
+            <br><br>
+            <p class="lead">Discover your next favorite movie with ease. <br>Simply provide a hint about the kind of
+                movie you're looking for, and we'll find the perfect match for you.</p>
         </div>
-        <div class="form-group">
-            <label for="resultLimit">How many movie suggestions are you looking for?</label>
-            <input type="number" class="form-control" id="resultLimit" name="resultLimit">
+
+        <div class="form"> <!-- Add a container to limit the width -->
+            <form id="movieForm" class="mt-3">
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <input type="text" class="form-control" id="searchQuery" name="searchQuery" placeholder="(e.g., A ship sinks at night and a couple falls in love..)">
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary" onclick="submitForm()">Search</button>
+                    </div>
+                </div>
+                <div id="totalMovies">Total Movies: Loading...</div>
+            </form>
+
+            <!-- Results DIV -->
+
         </div>
-        <button type="button" class="btn btn-primary" onclick="submitForm()">Search</button>
-    </form>
-
-    <!-- Results DIV -->
-    <div id="movieResults" class="mt-5"></div>
-
-    <!-- Total Movies DIV -->
-    <div id="totalMovies">Total Movies: Loading...</div>
+    </div>
 </div>
+<br>
+<div id="movieResults" class="movieResults"></div>
+
+<br>
+
 
 <!-- Include this JavaScript block for AJAX request -->
 <script>
@@ -82,7 +167,6 @@
 
     function submitForm() {
         var searchQuery = document.getElementById('searchQuery').value;
-        var resultLimit = document.getElementById('resultLimit').value;
 
         // Validate that searchQuery is not null or empty
         if (!searchQuery.trim()) {
@@ -90,13 +174,8 @@
             return;
         }
 
-        // Validate that resultLimit is greater than 0
-        if (resultLimit <= 0 || isNaN(resultLimit)) {
-            alert('Result Limit must be a number greater than 0');
-            return;
-        }
 
-        var data = { searchQuery: searchQuery, resultLimit: resultLimit };
+        var data = {search: searchQuery, limit: 2};
 
         var resultsDiv = document.getElementById('movieResults');
         resultsDiv.innerHTML = '<div class="loading">Searching for movies...</div>';
@@ -113,17 +192,22 @@
                 resultsDiv.innerHTML = '';
 
                 if (data.length > 0) {
-                    for (var i=0; i < data.length; i++) {
+                    for (var i = 0; i < data.length; i++) {
                         var movie = data[i];
                         var movieDiv = `
-                          <div class="movie">
-                              <div class="movie-title"><b>Title:</b> ${movie.title}</div>
-                              <div class="movie-year"><b>Year:</b> ${movie.year}</div>
-                              <div class="movie-genres"><b>Genres:</b> ${movie.genres.join(', ')}</div>
-                              <div class="movie-cast"><b>Cast:</b> ${movie.cast.join(', ')}</div>
-                              <div><b>Plot:</b> ${movie.plot}</div>
-                              <div><b>Full Plot:</b> ${movie.fullPlot}</div>
-                          </div>`;
+                            <div class="movie">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <div class="movie-title"><b>Title:</b> ${movie.title}</div>
+                                        <div class="movie-year"><b>Year:</b> ${movie.year}</div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="movie-genres"><b>Genres:</b> ${movie.genres.join(', ')}</div>
+                                <div class="movie-cast"><b>Cast:</b> ${movie.cast.join(', ')}</div>
+                                <hr>
+                                <div><b>Full Plot:</b> ${movie.fullPlot}</div>
+                            </div>`;
                         resultsDiv.innerHTML += movieDiv;
                     }
                 } else {

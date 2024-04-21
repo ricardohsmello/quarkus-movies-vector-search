@@ -41,8 +41,8 @@ public class MoviesResource {
 
     @Path("/total")
     @GET
-    public int totalMovies() {
-        return movieService.getAll().size();
+    public Long totalMovies() {
+        return movieService.getTotalNumberOfMovies();
     }
 }
 
