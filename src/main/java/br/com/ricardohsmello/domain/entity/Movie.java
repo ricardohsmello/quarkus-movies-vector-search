@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
  public record Movie(
+    String id,
     String plot,
     List<String> genres,
     List<String> cast,
@@ -15,10 +16,12 @@ import java.util.List;
     List<String> languages,
     Date released,
     List<String> directors,
-    int year) {
+    int year,
+    double rating
+    ) {
      public MovieResponse toResponse() {
          return new MovieResponse(
-                 title, plot, fullPlot, year, genres, cast
+                id, title, plot, fullPlot, year, genres, cast, rating
          );
      }
  }
