@@ -29,6 +29,7 @@ public class MovieRepositoryImpl implements PanacheMongoRepository<MovieEntity>,
         List<Movie> movieList = new ArrayList<>();
 
         try {
+
             AggregateIterable<MovieEntity> aggregate = mongoCollection().aggregate(List.of(
                     new Document(
                             "$vectorSearch",
@@ -37,7 +38,8 @@ public class MovieRepositoryImpl implements PanacheMongoRepository<MovieEntity>,
                                     .append("numCandidates", limit)
                                     .append("index", "vector_index")
                                     .append("limit", limit)
-                    )
+                    ),
+                    new Document("$sort", new Document("imdb.rating", -1))
             ));
 
             for (MovieEntity movieEntity : aggregate) {

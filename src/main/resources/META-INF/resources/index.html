@@ -175,7 +175,7 @@
         }
 
 
-        var data = {search: searchQuery, limit: 2};
+        var data = {search: searchQuery, limit: 6};
 
         var resultsDiv = document.getElementById('movieResults');
         resultsDiv.innerHTML = '<div class="loading">Searching for movies...</div>';
@@ -204,7 +204,8 @@
                                 </div>
                                 <hr>
                                 <div class="movie-genres"><b>Genres:</b> ${movie.genres.join(', ')}</div>
-                                <div class="movie-cast"><b>Cast:</b> ${movie.cast.join(', ')}</div>
+                                <div class="movie-cast"><b>Cast:</b> ${movie.cast ? movie.cast.join(', ') : 'N/A'}</div>
+
                                 <hr>
                                 <div><b>Full Plot:</b> ${movie.fullPlot}</div>
                             </div>`;
