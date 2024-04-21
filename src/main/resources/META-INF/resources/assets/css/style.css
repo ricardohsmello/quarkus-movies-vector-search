@@ -1,0 +1,156 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #444444;
+}
+
+a {
+  text-decoration: none;
+  color: #0880e8;
+}
+
+a:hover {
+  color: #2b99f8;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway", sans-serif;
+}
+
+#mainSection {
+  width: 100%;
+  height: 60vh; /* Adjust the height as needed */
+  overflow: hidden;
+  position: relative;
+  background-size: cover;
+  margin-bottom: -90px;
+  z-index: 99;
+  transition: 0.3s;
+}
+
+#mainSection:before {
+  content: "";
+  background: url("../img/wall.jpg");
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#mainSection .carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+
+}
+
+#mainSection p {
+  width: 80%;
+  animation-delay: 0.4s;
+  /*margin: 0 auto 10px auto;*/
+  color: #000;
+}
+
+.icon-boxes {
+  padding-top: 0;
+  position: relative;
+  z-index: 100;
+  /*margin-top: -300px;*/
+}
+
+.icon-boxes .icon-box {
+  padding: 10px 5px;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 5px 10px 29px 0 rgba(68, 88, 144, 0.2);
+  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  position: relative;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  font-weight: bold;
+  color: #000000;
+}
+
+button {
+  background-color: #007BFF;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.movie {
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.movie-title {
+  font-size: 20px;
+  color: #228B22;
+}
+
+.movie-rating {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-style: italic;
+  padding: 15px 5px;
+  border-radius: 5px 0 0 0;
+}
+
+.movie-genres, .movie-cast, .movie-year {
+  color: #6c757d;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#totalMovies {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.form {
+  max-width: 900px;
+  margin: 30px auto 0 auto; /* Added 30px top margin */
+}
+
+.movieResults {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.container2 {
+  background-color: #0a3622;
+}
+.btn {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
