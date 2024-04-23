@@ -1,8 +1,5 @@
 package br.com.ricardohsmello.domain.entity;
 
-import br.com.ricardohsmello.application.response.MovieResponse;
-
-import java.util.Date;
 import java.util.List;
 
  public record Movie(
@@ -14,16 +11,10 @@ import java.util.List;
     String title,
     String fullPlot,
     List<String> languages,
-    Date released,
     List<String> directors,
     int year,
-    double rating
+    Object rating
     ) {
-     public MovieResponse toResponse() {
-         return new MovieResponse(
-                id, title, plot, fullPlot, year, genres, cast, rating
-         );
-     }
  }
 
 

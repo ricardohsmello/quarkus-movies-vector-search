@@ -88,15 +88,11 @@ h1 {
   font-weight: bold;
   color: #000000;
 }
-
 button {
-  background-color: #007BFF;
-  color: #fff;
-  font-weight: bold;
-  cursor: pointer;
+  max-height: 1000px;
 }
-
 button:hover {
+
   background-color: #0056b3;
 }
 
@@ -138,7 +134,7 @@ button:hover {
 
 .form {
   max-width: 900px;
-  margin: 30px auto 0 auto; /* Added 30px top margin */
+  margin: 50px auto 0 auto; /* Added 30px top margin */
 }
 
 .movieResults {

@@ -8,7 +8,7 @@ import jakarta.ws.rs.POST;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @RegisterRestClient
-public interface OpenAIGateway {
+public interface OpenAIRestClient {
 
     @POST
     OpenAIResponse embedding(OpenAIRequest request, @HeaderParam("Authorization") String authorization);

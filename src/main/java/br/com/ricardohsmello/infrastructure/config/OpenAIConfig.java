@@ -1,4 +1,4 @@
-package br.com.ricardohsmello.application.config;
+package br.com.ricardohsmello.infrastructure.config;
 
 import jakarta.inject.Singleton;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

@@ -15,29 +15,18 @@ import java.util.List;
 public class MovieRepositoryImpl implements PanacheMongoRepository<MovieEntity>, MovieRepository {
 
     @Override
-    public Movie findByTitle(String title) {
-        return find("title", title).stream().map(MovieEntity::toDomain).toList().getFirst();
-    }
-
-    @Override
-    public List<Movie> getAll() {
-        return findAll().stream().map(MovieEntity::toDomain).toList();
-    }
-
-    @Override
-    public List<Movie> findSimilar(List<Double> embedding, Long limit) {
+    public List<Movie> findSimilar(List<Double> embedding) {
         List<Movie> movieList = new ArrayList<>();
 
         try {
-
             AggregateIterable<MovieEntity> aggregate = mongoCollection().aggregate(List.of(
                     new Document(
                             "$vectorSearch",
                             new Document("queryVector", embedding)
                                     .append("path", "plot_embedding")
-                                    .append("numCandidates", limit)
+                                    .append("numCandidates", 50)
                                     .append("index", "vector_index")
-                                    .append("limit", limit)
+                                    .append("limit", 5)
                     ),
                     new Document("$sort", new Document("imdb.rating", -1))
             ));
@@ -52,13 +41,6 @@ public class MovieRepositoryImpl implements PanacheMongoRepository<MovieEntity>,
 
         return movieList;
     }
-
-    @Override
-    public Long getTotalNumberOfMovies() {
-        return mongoCollection().countDocuments();
-    }
-
-
 }
 
 
