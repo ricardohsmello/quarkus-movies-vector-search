@@ -36,7 +36,7 @@ h6 {
 #mainSection:before {
   content: "";
   /*background: url("../img/wall.jpg");*/
-  background: #052c65;
+  background: #003544;
   position: absolute;
   bottom: 0;
   top: 0;
@@ -102,6 +102,8 @@ button:hover {
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow */
+
 }
 
 .movie-title {
@@ -149,4 +151,10 @@ button:hover {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
+}
+
+.movie-divider {
+  background-color: #003544; /* Change this to your desired background color */
+  height: 2px; /* Adjust the height of the divider */
+  border: none; /* Remove the default border */
 }

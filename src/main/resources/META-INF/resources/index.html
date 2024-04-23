@@ -28,14 +28,13 @@
     <div class="carousel-item active">
         <div class="logo">
             <div class="py-5 text-center">
-                <img class="d-block mx-auto mb-4" src="logo-complete2.png" alt="" width="320" height="90">
-<!--                                        <h1>Movie Finder</h1>-->
+                <img class="d-block mx-auto mb-4" src="logo-complete2.png" alt="" width="350" height="100">
             </div>
         </div>
-        <br>  <br>  <br>
+        <br>  <br>
         <div class="carousel-container">
 
-            <p style="font-size: 25px; font-family: Euclid Circula; color: #b6d4fe" >Discover your next favorite movie with ease. <br>Simply
+            <p style="font-size: 20px;  color: #ffffff" >Discover your next favorite movie with ease. <br>Simply
                 provide a hint about the kind of
                 movie you're looking for, and we'll find the perfect match for you.</p>
         </div>
@@ -131,26 +130,23 @@
                 const castHtml = movie.cast ? movie.cast.map(castMember => `<a href="https://www.google.com/search?q=${encodeURIComponent(castMember)}" target="_blank">${castMember}</a>`).join(', ') : 'N/A';
 
                 const movieDiv = `
-                    <div class="movie">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <div class="movie-title"><b>Title:</b> <a href="https://www.imdb.com/find/?q=${encodeURIComponent(movie.title)}" target="_blank">${movie.title ? movie.title : 'N/A'}</a></div>
-                               <div class="movie-rating"><b>Rating:</b> <span class="badge bg-secondary"> ${movie.rating ? movie.rating : 'N/A'}</div></span>
-                            </div>
-
-                        </div>
-                        <hr>
-                        <div class="movie-year"><b>Year:</b> ${movie.year ? movie.year : 'N/A'}</div>
-                        <div class="movie-genres"><b>Genres:</b> ${movie.genres ? movie.genres.join(', ') : 'N/A'}</div>
-                        <div class="movie-cast"><b>Cast:</b> ${castHtml}</div>
-                        <hr>
-                        <div><b>Plot:</b> ${movie.plot ? movie.plot : 'N/A'}</div>
-                        <br>
-                        <div><b>Full Plot:</b> ${movie.fullPlot ? movie.fullPlot : 'N/A'}</div>
-
-
-
-                    </div>`;
+                   <div class="movie">
+    <div class="d-flex justify-content-between align-items-start">
+        <div>
+            <div class="movie-title"><b>Title:</b> <a href="https://www.imdb.com/find/?q=${encodeURIComponent(movie.title)}" target="_blank">${movie.title ? movie.title : 'N/A'}</a></div>
+            <div class="movie-rating"><b>Rating:</b> <span class="badge bg-secondary">${movie.rating ? movie.rating : 'N/A'}</span></div>
+        </div>
+    </div>
+    <hr class="movie-divider">
+    <div class="movie-year"><b>Year:</b> ${movie.year ? movie.year : 'N/A'}</div>
+    <div class="movie-genres"><b>Genres:</b> ${movie.genres ? movie.genres.join(', ') : 'N/A'}</div>
+    <div class="movie-cast"><b>Cast:</b> ${castHtml}</div>
+    <hr class="movie-divider">
+    <div><b>Plot:</b> ${movie.plot ? movie.plot : 'N/A'}</div>
+    <br>
+    <div><b>Full Plot:</b> ${movie.fullPlot ? movie.fullPlot : 'N/A'}</div>
+</div>
+`;
                 resultsDiv.innerHTML += movieDiv;
             }
 
