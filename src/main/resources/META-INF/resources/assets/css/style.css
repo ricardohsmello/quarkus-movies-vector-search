@@ -35,7 +35,8 @@ h6 {
 
 #mainSection:before {
   content: "";
-  background: url("../img/wall.jpg");
+  /*background: url("../img/wall.jpg");*/
+  background: #052c65;
   position: absolute;
   bottom: 0;
   top: 0;
@@ -105,7 +106,7 @@ button:hover {
 
 .movie-title {
   font-size: 20px;
-  color: #228B22;
+  color: #052c65;
 }
 
 .movie-rating {
