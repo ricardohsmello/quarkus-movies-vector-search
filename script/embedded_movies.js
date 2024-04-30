@@ -1,10 +1,16 @@
 const { MongoClient, ObjectId } = require('mongodb');
 const axios = require('axios');
+const url = 'https://api.openai.com/v1/embeddings';
+const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer <BEARER>,
+    'Cookie': '__cf_bm=tII5A062TNL22wD8wP1XCnKvkiU63z3BZx88H5blaps-1713671399-1.0.1.1-A3dQc_CRLeAkD4GjU4CT9cMO1O6Hdb6obs6nuXco9stwYtAxtjEWqB55X8LlOtDJm5OW0mjNNyFxi1b8I_AClQ; _cfuvid=D3BM50GLthY1FkdxEZobKDirGC040sWd23ftcatdMc8-1713671399184-0.0.1.1-604800000'
+};
 
 async function start() {
     console.log("starting..");
 
-    const uri = 'mongodb+srv://ricardohsmello:gV9bVjmy4FYzSyOV@cluster0.ybhjkym.mongodb.net/';
+    const uri = 'mongodb+srv://USER:PASSWORD@cluster0.ybhjkym.mongodb.net/';
     const client = new MongoClient(uri);
     try {
         console.log("try..");
@@ -28,7 +34,7 @@ async function start() {
         console.error('error', error);
         throw error;
     } finally {
-        // await client.close();
+        await client.close();
     }
 }
 
@@ -41,13 +47,6 @@ async function update(moviesCollection, movie, embedded) {
 
 
 async function getEmbedding(inputText) {
-    const url = 'https://api.openai.com/v1/embeddings';
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer sk-proj-upSLsAFRaXPwz4lIXvjfT3BlbkFJC8jJg5H0LWZtCLONezTU',
-        'Cookie': '__cf_bm=tII5A062TNL22wD8wP1XCnKvkiU63z3BZx88H5blaps-1713671399-1.0.1.1-A3dQc_CRLeAkD4GjU4CT9cMO1O6Hdb6obs6nuXco9stwYtAxtjEWqB55X8LlOtDJm5OW0mjNNyFxi1b8I_AClQ; _cfuvid=D3BM50GLthY1FkdxEZobKDirGC040sWd23ftcatdMc8-1713671399184-0.0.1.1-604800000'
-    };
-
     const data = {
         input: inputText,
         model: "text-embedding-ada-002"
