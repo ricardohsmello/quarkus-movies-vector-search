@@ -1,89 +1,176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
     <title>Movie Finder</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .movie {
-            border: 1px solid #333;
-            margin-bottom: 10px;
-            padding: 10px;
-        }
-        .movie-title {
-            font-size: 20px;
-            color: #007BFF;
-        }
-        .movie-genres, .movie-cast {
-            font-size: 16px;
-            color: #6c757d;
-        }
-        .movie-year {
-            font-size: 16px;
-            font-weight: bold;
-        }
-    </style>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="assets/css/style.css" rel="stylesheet">
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/js/function_find_similar.js"></script>
+    <script src="assets/js/main.js"></script>
 </head>
-
 <body>
-<form id="movieForm">
-    <label for="question">Question:</label><br>
-    <input type="text" id="question" name="question"><br>
-    <label for="limit">Limit:</label><br>
-    <input type="number" id="limit" name="limit"><br>
-    <input type="button" value="Submit" onclick="submitForm()">
-</form>
 
-<!-- Results DIV -->
-<div id="results"></div>
+<section id="mainSection" class="justify-content-center">
 
-<!-- Include this JavaScript block for AJAX request -->
+    <div class="carousel-item active">
+        <div class="logo">
+            <div class="py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="logo-complete2.png" alt="" width="350" height="90">
+            </div>
+        </div>
+        <br>  <br>
+        <div class="carousel-container">
+
+
+            <p style="font-size: 20px;  color: #ffffff" >Discover your next favorite movie easily. <br>Simply
+                provide a hint about the kind of
+                movie you're looking for, and we'll find the perfect match for you.</p>
+        </div>
+        <div class="form">
+            <form id="movieForm">
+                <div class="container text-center">
+                    <div class="row align-items-start">
+                        <div class="col-10 text-right"> <!-- Adjust column width to 8 -->
+                            <div>
+                                <input style="padding: 15px" type="text" class="form-control" id="searchQuery" name="searchQuery" placeholder="(e.g., A ship sinks at night and a couple falls in love..)"/>
+                            </div>
+                        </div>
+
+                        <div class="col-2 text-right" style="margin-top: 5px">
+                            <button type="button" class="btn btn-primary" onclick="submitForm()">
+                                <img src="assets/img/search.svg" alt="Search">  Search</button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="icon-boxes" class="icon-boxes">
+    <div class="container">
+
+        <div class="row" >
+            <div class="col-md-1 col-lg-4 d-flex" data-aos="fade-up">
+                <div class="icon-box">
+                    <iframe style="background: #FFFFFF;border: none;border-radius: 2px;" width="400" height="300"
+                            src="https://charts.mongodb.com/charts-moviefinder-fnwzhjb/embed/charts?id=662b369d-3906-49db-8f74-7cfdb4677eab&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
+                </div>
+            </div>
+
+            <div class="col-md-1 col-lg-4 d-flex" data-aos="fade-up">
+                <div class="icon-box">
+                    <iframe style="background: #FFFFFF;border: none;border-radius: 2px;" width="400" height="300"
+                            src="https://charts.mongodb.com/charts-moviefinder-fnwzhjb/embed/charts?id=662b3805-820f-4bb0-88ae-a35fecc08eb4&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
+                </div>
+            </div>
+            <div class="col-md-1 col-lg-4 d-flex" data-aos="fade-up">
+                <div class="icon-box">
+                    <iframe style="background: #FFFFFF;border: none;border-radius: 2px;" width="400" height="300"
+                            src="https://charts.mongodb.com/charts-moviefinder-fnwzhjb/embed/charts?id=662b38da-be71-47e7-8220-f1503b5c3066&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<br><br>
+<div class="container">
+    <div id="movieResults" class="movieResults"></div>
+</div>
+<br>
+<br>
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
 <script>
-    function submitForm() {
-        var question = document.getElementById('question').value;
-        var limit = document.getElementById('limit').value;
+    document.addEventListener('DOMContentLoaded', async function () {
+        await fetchTotalMovies();
+    });
 
-        var data = { question: question, limit: limit };
+    async function submitForm() {
+        const searchQuery = document.getElementById('searchQuery').value;
 
-        fetch('http://localhost:8080/movies/findSimilar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(response => response.json())
-            .then(data => {
-                var resultsDiv = document.getElementById('results');
+        if (!searchQuery.trim()) {
+            alert('Search Query must not be empty');
+            return;
+        }
 
-                // Clear out previous results
-                resultsDiv.innerHTML = '';
+        const data = {input: searchQuery};
 
-                // Check if any movies returned
-                if (data.length > 0) {
-                    for (var i=0; i < data.length; i++) {
-                        var movie = data[i];
-                        var movieDiv = `
-                      <div class="movie">
-                          <div class="movie-title"><b>Title:</b> ${movie.title}</div>
-                          <div class="movie-year"><b>Year:</b> ${movie.year}</div>
+        const movieData = await fetchAndDisplayMovies(data);
 
-                          <div class="movie-genres"><b>Genres:</b> ${movie.genres.join(', ')}</div>
-                          <div class="movie-cast"><b>Cast:</b> ${movie.cast.join(', ')}</div>
-                           <div><b>Plot:</b> ${movie.plot}</div>
-                           <div><b>Full Plot:</b> ${movie.fullPlot}</div>
-                      </div>`;
-                        resultsDiv.innerHTML += movieDiv;
-                    }
-                } else {
-                    resultsDiv.innerHTML = '<p>No movies found.</p>';
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        const resultsDiv = document.getElementById('movieResults');
+        resultsDiv.innerHTML = '';
+
+        if (movieData.length > 0) {
+            const movieRequest = {embedding: [], ids: []};
+
+
+            for (let i = 0; i < movieData.length; i++) {
+                const movie = movieData[i];
+                movieRequest.embedding.push(movie.embedding);
+                movieRequest.ids.push(movie.id);
+
+                const castHtml = movie.cast ? movie.cast.map(castMember => `<a href="https://www.google.com/search?q=${encodeURIComponent(castMember)}" target="_blank">${castMember}</a>`).join(', ') : 'N/A';
+
+                const movieDiv = `
+                   <div class="movie">
+    <div class="d-flex justify-content-between align-items-start">
+        <div>
+            <div class="movie-title"><b>Title:</b> <a href="https://www.imdb.com/find/?q=${encodeURIComponent(movie.title)}" target="_blank">${movie.title ? movie.title : 'N/A'}</a></div>
+            <div class="movie-rating"><b>Rating:</b> <span class="badge bg-secondary">${movie.rating ? movie.rating : 'N/A'}</span></div>
+        </div>
+    </div>
+    <hr class="movie-divider">
+    <div class="movie-year"><b>Year:</b> ${movie.year ? movie.year : 'N/A'}</div>
+    <div class="movie-genres"><b>Genres:</b> ${movie.genres ? movie.genres.join(', ') : 'N/A'}</div>
+    <div class="movie-cast"><b>Cast:</b> ${castHtml}</div>
+    <hr class="movie-divider">
+    <div><b>Plot:</b> ${movie.plot ? movie.plot : 'N/A'}</div>
+    <br>
+    <div><b>Full Plot:</b> ${movie.fullPlot ? movie.fullPlot : 'N/A'}</div>
+</div>
+`;
+                resultsDiv.innerHTML += movieDiv;
+            }
+
+            let value = JSON.stringify(ids.data);
+
+            const loadMore = `
+                <div id="card-container">
+                </div>
+                <div className="card-actions">
+
+        <button id="load-more" onclick=loadMoreMovies(${value})>Load more</button>
+                    <span>Showing
+                    <span id="card-count">5</span> of
+                    <span id="card-total">${totalMovies}</span> cards
+                    </span>
+                </div>`;
+            resultsDiv.innerHTML += loadMore;
+        } else {
+            resultsDiv.innerHTML = '<p>No movies found.</p>';
+        }
     }
 </script>
+
 </body>
 </html>
+
