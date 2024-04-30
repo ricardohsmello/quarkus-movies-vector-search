@@ -28,13 +28,14 @@
     <div class="carousel-item active">
         <div class="logo">
             <div class="py-5 text-center">
-                <img class="d-block mx-auto mb-4" src="logo-complete2.png" alt="" width="350" height="100">
+                <img class="d-block mx-auto mb-4" src="logo-complete2.png" alt="" width="350" height="90">
             </div>
         </div>
         <br>  <br>
         <div class="carousel-container">
 
-            <p style="font-size: 20px;  color: #ffffff" >Discover your next favorite movie with ease. <br>Simply
+
+            <p style="font-size: 20px;  color: #ffffff" >Discover your next favorite movie easily. <br>Simply
                 provide a hint about the kind of
                 movie you're looking for, and we'll find the perfect match for you.</p>
         </div>
@@ -67,20 +68,20 @@
             <div class="col-md-1 col-lg-4 d-flex" data-aos="fade-up">
                 <div class="icon-box">
                     <iframe style="background: #FFFFFF;border: none;border-radius: 2px;" width="400" height="300"
-                            src="https://charts.mongodb.com/charts-developeradvocate-msnsgln/embed/charts?id=66256319-3f35-4d7b-89cd-f978a05121a8&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
+                            src="https://charts.mongodb.com/charts-moviefinder-fnwzhjb/embed/charts?id=662b369d-3906-49db-8f74-7cfdb4677eab&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
                 </div>
             </div>
 
             <div class="col-md-1 col-lg-4 d-flex" data-aos="fade-up">
                 <div class="icon-box">
                     <iframe style="background: #FFFFFF;border: none;border-radius: 2px;" width="400" height="300"
-                            src="https://charts.mongodb.com/charts-developeradvocate-msnsgln/embed/charts?id=6625658d-e569-40cf-8bda-3df617310305&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
+                            src="https://charts.mongodb.com/charts-moviefinder-fnwzhjb/embed/charts?id=662b3805-820f-4bb0-88ae-a35fecc08eb4&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
                 </div>
             </div>
             <div class="col-md-1 col-lg-4 d-flex" data-aos="fade-up">
                 <div class="icon-box">
                     <iframe style="background: #FFFFFF;border: none;border-radius: 2px;" width="400" height="300"
-                            src="https://charts.mongodb.com/charts-developeradvocate-msnsgln/embed/charts?id=662567ed-e569-4d3a-8d0c-3df6176625cb&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
+                            src="https://charts.mongodb.com/charts-moviefinder-fnwzhjb/embed/charts?id=662b38da-be71-47e7-8220-f1503b5c3066&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
                 </div>
             </div>
 
@@ -111,7 +112,7 @@
             return;
         }
 
-        const data = {search: searchQuery, limit: 20};
+        const data = {input: searchQuery};
 
         const movieData = await fetchAndDisplayMovies(data);
 

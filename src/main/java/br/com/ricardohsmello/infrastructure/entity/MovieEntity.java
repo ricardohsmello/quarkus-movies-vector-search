@@ -5,10 +5,9 @@ import io.quarkus.mongodb.panache.common.MongoEntity;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
-import java.util.Date;
 import java.util.List;
 
-@MongoEntity(collection="embedded_movies")
+@MongoEntity(collection="movies")
 public class MovieEntity  {
     public ObjectId id;
     public String plot;

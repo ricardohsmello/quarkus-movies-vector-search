@@ -23,12 +23,11 @@ public class MovieRepositoryImpl implements PanacheMongoRepository<MovieEntity>,
                     new Document(
                             "$vectorSearch",
                             new Document("queryVector", embedding)
-                                    .append("path", "plot_embedding")
-                                    .append("numCandidates", 50)
+                                    .append("path", "movie_embedded")
+                                    .append("numCandidates", 20)
                                     .append("index", "vector_index")
                                     .append("limit", 10)
-                    ),
-                    new Document("$sort", new Document("imdb.rating", -1))
+                    )
             ));
 
             for (MovieEntity movieEntity : aggregate) {

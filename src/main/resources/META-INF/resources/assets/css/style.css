@@ -96,14 +96,33 @@ button:hover {
   background-color: #0056b3;
 }
 
+/*.movie {*/
+/*  position: relative;*/
+/*  border: 1px solid #ccc;*/
+/*  border-radius: 5px;*/
+/*  padding: 10px;*/
+/*  margin-bottom: 15px;*/
+/*  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.movie-title {*/
+/*  font-size: 20px;*/
+/*  color: #052c65;*/
+/*}*/
+
+/*.movie-rating {*/
+/*  color: #6c757d;*/
+/*  top: 10px;*/
+/*  right: 10px;*/
+/*}*/
+
 .movie {
   position: relative;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow */
-
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .movie-title {
@@ -113,24 +132,22 @@ button:hover {
 
 .movie-rating {
   position: absolute;
-  top: 0;
-  right: 0;
-  font-style: italic;
-  padding: 15px 5px;
-  border-radius: 5px 0 0 0;
+  top: 10px;
+  right: 10px;
+  color: #6c757d;
 }
 
 .movie-genres, .movie-cast, .movie-year {
   color: #6c757d;
 }
+.movie-divider {
+  background-color: #003544; /* Change this to your desired background color */
+  height: 2px; /* Adjust the height of the divider */
+  border: none; /* Remove the default border */
+}
 
 .loading {
   text-align: center;
-  margin-top: 20px;
-}
-
-#totalMovies {
-  text-align: right;
   margin-top: 20px;
 }
 
@@ -153,8 +170,3 @@ button:hover {
   box-sizing: border-box;
 }
 
-.movie-divider {
-  background-color: #003544; /* Change this to your desired background color */
-  height: 2px; /* Adjust the height of the divider */
-  border: none; /* Remove the default border */
-}

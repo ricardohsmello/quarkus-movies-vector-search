@@ -22,9 +22,9 @@ public class MoviesResource {
 
     @Path("/findSimilar")
     @POST
-    public List<MovieResponse> process(MovieRequest request) {
+    public List<MovieResponse> findSimilar(MovieRequest request) {
         return movieService.findSimilar(
-                request.search()).stream().map(MovieResponse::fromDomain).toList();
+                request.input()).stream().map(MovieResponse::fromDomain).toList();
     }
 }
 

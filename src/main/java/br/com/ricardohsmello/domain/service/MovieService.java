@@ -19,7 +19,11 @@ public class MovieService {
     }
 
     public List<Movie> findSimilar(String input) {
-        List<Double> embedding = openAIGateway.getEmbedding(input);
+        List<Double> embedding = getEmbedding(input);
         return movieRepository.findSimilar(embedding);
+    }
+
+    private List<Double> getEmbedding(String input) {
+        return openAIGateway.getEmbedding(input);
     }
 }
