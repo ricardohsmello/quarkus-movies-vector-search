@@ -29,7 +29,6 @@ public class MovieEntity  {
     public static class Imdb {
         public double rating;
     }
-
 }
 
 
