@@ -1,5 +1,3 @@
-# quarkus-movies-vector-search
-
 # Movie Finder
 
 Welcome to Quarkus Movies Vector Search, a robust application engineered to revolutionize the way we discover movies. Utilizing the power of vector search in MongoDB Atlas, our application transforms the movie discovery experience into an intuitive, efficient, and enjoyable process.

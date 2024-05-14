@@ -1,0 +1,10 @@
+{
+  "fields": [
+    {
+      "numDimensions": 1536,
+      "path": "movie_embedded",
+      "similarity": "dotProduct",
+      "type": "vector"
+    }
+  ]
+}
