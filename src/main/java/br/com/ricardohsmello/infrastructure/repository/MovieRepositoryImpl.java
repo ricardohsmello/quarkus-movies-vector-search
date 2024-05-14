@@ -41,5 +41,3 @@ public class MovieRepositoryImpl implements PanacheMongoRepository<MovieEntity>,
         return movieList;
     }
 }
-
-
