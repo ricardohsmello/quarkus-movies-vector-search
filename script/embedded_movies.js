@@ -45,7 +45,6 @@ async function update(moviesCollection, movie, embedded) {
     );
 }
 
-
 async function getEmbedding(inputText) {
     const data = {
         input: inputText,
