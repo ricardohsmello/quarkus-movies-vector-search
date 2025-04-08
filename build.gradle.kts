@@ -17,8 +17,8 @@ dependencies {
     implementation("io.quarkus:quarkus-mongodb-panache")
     implementation("io.quarkus:quarkus-arc")
 
-    implementation("io.quarkus:quarkus-resteasy-reactive")
-    implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
+    implementation("io.quarkus:quarkus-resteasy-reactive:3.9.5")
+    implementation("io.quarkus:quarkus-resteasy-reactive-jackson:3.9.5")
     implementation("io.quarkus:quarkus-rest-client-jackson")
 
 
